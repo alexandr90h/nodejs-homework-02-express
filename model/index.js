@@ -9,12 +9,12 @@ const listContacts = async () => {
   return db.get("contacts").value();
 };
 
-const getContactById = async (contactId) => {
-  return db.get("contacts").find({ contactId }).value();
+const getContactById = async (id) => {
+  return db.get("contacts").find({ id }).value();
 };
 
-const removeContact = async (contactId) => {
-  const [record] = db.get("contacts").remove({ contactId }).write();
+const removeContact = async (id) => {
+  const [record] = db.get("contacts").remove({ id }).write();
   return record;
 };
 
