@@ -25,7 +25,11 @@ const addContact = async (body) => {
   return record;
 };
 
-const updateContact = async (contactId, body) => {};
+const updateContact = async (id, body) => {
+  const record = db.get("contacts").find({ id }).assign(body).value();
+  db.write();
+  return record.id ? record : null;
+};
 
 module.exports = {
   listContacts,

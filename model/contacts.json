@@ -13,18 +13,6 @@
       "phone": "(294) 840-6685"
     },
     {
-      "id": "3",
-      "name": "Kennedy Lane",
-      "email": "mattis.Cras@nonenimMauris.net",
-      "phone": "(542) 451-7038"
-    },
-    {
-      "id": "4",
-      "name": "Wylie Pope",
-      "email": "est@utquamvel.net",
-      "phone": "(692) 802-2949"
-    },
-    {
       "id": "5",
       "name": "Cyrus Jackson",
       "email": "nibh@semsempererat.com",
@@ -63,7 +51,19 @@
     {
       "id": "f23e74f7-75d4-416a-b650-1563f92cb1fb",
       "name": "Alexandr Bezvuglyak",
-      "number": "0971520944",
+      "phone": "0971520944",
+      "email": "alexandr90h@gmail.com"
+    },
+    {
+      "id": "9b5f2a07-b854-4245-a9f9-e7f8f86775bd",
+      "name": "AlexandrBezvuglyakxzvbxdbv",
+      "phone": "0971520944",
+      "email": "alexandr90h@gmail.com"
+    },
+    {
+      "id": "6b3fc36a-d41e-4f6e-816b-efc2488b1703",
+      "name": "Alexandr Bezvuglyakxzvbxdbv",
+      "phone": "0971520944",
       "email": "alexandr90h@gmail.com"
     }
   ]
