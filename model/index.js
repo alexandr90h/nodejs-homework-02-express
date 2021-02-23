@@ -1,16 +1,23 @@
-// const fs = require('fs/promises')
-// const path = require('path')
 const db = require("./db");
-const { v4: uuid } = require("uuid");
-
-// const contactsPath = path.resolve(__dirname, 'contacts.json')
-
+const { ObjectId } = require("mongodb");
+const getColection = async (db, name) => {
+  const client = await db;
+  const collection = await client.db().collection(name);
+  return collection;
+};
 const listContacts = async () => {
-  return db.get("contacts").value();
+  const collection = await getColection(db, "contacts");
+  const results = await collection.find({}).toArray();
+  return results;
 };
 
 const getContactById = async (id) => {
-  return db.get("contacts").find({ id }).value();
+  const collection = await getColection(db, "contacts");
+  const objectId = new ObjectId(id);
+  const results = await collection.find({ _id: objectId }).toArray();
+  return results;
+
+  // return db.get("contacts").find({ _id }).value();
 };
 
 const removeContact = async (id) => {
@@ -19,10 +26,13 @@ const removeContact = async (id) => {
 };
 
 const addContact = async (body) => {
-  const id = uuid();
-  const record = { id, ...body };
-  db.get("contacts").push(record).write();
-  return record;
+  const record = { ...body };
+  const collection = await getColection(db, "contacts");
+  const {
+    ops: [results],
+  } = await collection.insertOne(record);
+  // db.get("contacts").push(record).write();
+  return results;
 };
 
 const updateContact = async (id, body) => {

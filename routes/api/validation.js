@@ -7,6 +7,9 @@ const schemaAddContact = Joi.object({
     tlds: { allow: ["com", "net"] },
   }),
   phone: Joi.string().required(),
+  subscription: Joi.string().required(),
+  password: Joi.string().required(),
+  token: Joi.string().allow(null, ""),
 });
 const schemaUpdateContact = Joi.object({
   name: Joi.string().min(3).max(30).required(),
