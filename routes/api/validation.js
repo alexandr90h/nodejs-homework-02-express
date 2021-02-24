@@ -8,16 +8,16 @@ const schemaAddContact = Joi.object({
   }),
   phone: Joi.string().required(),
   subscription: Joi.string().required(),
-  password: Joi.string().required(),
+  password: Joi.string(),
   token: Joi.string().allow(null, ""),
 });
 const schemaUpdateContact = Joi.object({
-  name: Joi.string().min(3).max(30).required(),
+  name: Joi.string().min(3).max(30),
   email: Joi.string().email({
     minDomainSegments: 2,
     tlds: { allow: ["com", "net"] },
   }),
-  phone: Joi.string().required(),
+  phone: Joi.string(),
 });
 
 const validate = (schema, obj, next) => {
