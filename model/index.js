@@ -1,11 +1,3 @@
-// const db = require("./db");
-// const { ObjectId } = require("mongodb");
-
-// const getColection = async (db, name) => {
-//   const client = await db;
-//   const collection = await client.db().collection(name);
-//   return collection;
-// };
 const Contact = require("./schemas/contact");
 
 const listContacts = async () => {
@@ -20,16 +12,6 @@ const getContactById = async (id) => {
 
 const addContact = async (body) => {
   const results = await Contact.create(body);
-  // const record = {
-  //   ...body,
-  //   ...(body.subscription ? {} : { subscription: "free" }),
-  //   ...(body.password ? {} : { password: "password" }),
-  //   ...(body.token ? {} : { token: "" }),
-  // };
-  // const collection = await getColection(db, "contacts");
-  // const {
-  //   ops: [results],
-  // } = await collection.insertOne(record);
   return results;
 };
 

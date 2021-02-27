@@ -9,7 +9,7 @@ const db = mongoose.connect(uriDb, {
   useFindAndModify: false,
 });
 mongoose.connection.on("connected", () => {
-  console.log("Mongoose connection on db");
+  console.log("Database connection successful");
 });
 mongoose.connection.on("error", (err) => {
   console.log(`Mongoose connection error: ${err.message}`);
