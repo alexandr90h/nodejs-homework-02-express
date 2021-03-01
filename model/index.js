@@ -1,34 +1,34 @@
-// const fs = require('fs/promises')
-// const path = require('path')
-const db = require("./db");
-const { v4: uuid } = require("uuid");
-
-// const contactsPath = path.resolve(__dirname, 'contacts.json')
+const Contact = require("./schemas/contact");
 
 const listContacts = async () => {
-  return db.get("contacts").value();
+  const results = await Contact.find({});
+  return results;
 };
 
 const getContactById = async (id) => {
-  return db.get("contacts").find({ id }).value();
-};
-
-const removeContact = async (id) => {
-  const [record] = db.get("contacts").remove({ id }).write();
-  return record;
+  const [results] = await Contact.find({ _id: id });
+  return results;
 };
 
 const addContact = async (body) => {
-  const id = uuid();
-  const record = { id, ...body };
-  db.get("contacts").push(record).write();
-  return record;
+  const results = await Contact.create(body);
+  return results;
 };
 
 const updateContact = async (id, body) => {
-  const record = db.get("contacts").find({ id }).assign(body).value();
-  db.write();
-  return record.id ? record : null;
+  const results = await Contact.findByIdAndUpdate(
+    { _id: id },
+    { ...body },
+    { new: true }
+  );
+  return results;
+};
+
+const removeContact = async (id) => {
+  const results = await Contact.findByIdAndDelete({
+    _id: id,
+  });
+  return results;
 };
 
 module.exports = {
