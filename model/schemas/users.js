@@ -29,7 +29,7 @@ const usersSchema = new Schema(
       },
     },
     password: { type: String, required: [true, "pasword required"] },
-    token: { type: String, default: nall },
+    token: { type: String, default: null },
   },
   { versionKey: false, timestamps: true }
 );
@@ -44,5 +44,5 @@ usersSchema.pre("save", async function (next) {
 usersSchema.methods.validPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
-const User = model("user", userSchema);
+const User = model("user", usersSchema);
 module.exports = User;

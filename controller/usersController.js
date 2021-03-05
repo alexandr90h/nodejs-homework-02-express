@@ -6,16 +6,27 @@ const { Users } = require("../model/users");
 
 const reg = async (_req, res, next) => {
   try {
-    const { name, email, password, sex } = req.body;
+    const { email } = req.body;
     const user = await Users.findByEmail(email);
-
-    const contacts = await listContacts();
-    res.json({
+    if (user) {
+      return res.status(HttpCode.FORBIDDEN).json({
+        status: "error",
+        code: HttpCode.FORBIDDEN,
+        data: "Conflict",
+        message: "Email is already use",
+      });
+    }
+    const newUser = await Users.create(req.body);
+    return res.status(HttpCode.CREATE).json({
       status: "success",
-      code: 200,
-      data: { contacts },
+      code: HttpCode.CREATE,
+      data: { id: newUser.id, email: newUser.email, name: newUser.name },
     });
   } catch (error) {
     next(error);
   }
 };
+const login = async (req, res, next) => {};
+const logout = async (req, res, next) => {};
+
+module.exports = { reg, login, logout };
