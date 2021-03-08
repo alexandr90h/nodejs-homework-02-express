@@ -6,9 +6,10 @@ const {
   updateContact,
 } = require("../model/index");
 
-const getAll = async (_req, res, next) => {
+const getAll = async (req, res, next) => {
   try {
-    const contacts = await listContacts();
+    const userId = req.user.id;
+    const contacts = await listContacts(userId);
     res.json({
       status: "success",
       code: 200,
@@ -42,7 +43,8 @@ const getById = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const contacts = await addContact(req.body);
+    const userId = req.user.id;
+    const contacts = await addContact({ ...req.body, owner: userId });
     res.json({
       status: "success",
       code: 201,
@@ -55,7 +57,8 @@ const create = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
   try {
-    const contact = await removeContact(req.params.contactId);
+    const userId = req.user.id;
+    const contact = await removeContact(req.params.contactId, userId);
     if (contact) {
       return res.json({
         status: "success",
@@ -79,7 +82,8 @@ const remove = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    const contact = await updateContact(req.params.id, req.body);
+    const userId = req.user.id;
+    const contact = await updateContact(req.params.id, req.body, userId);
     if (contact) {
       return res.json({
         status: "success",
