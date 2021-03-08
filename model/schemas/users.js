@@ -1,23 +1,27 @@
 const mongoose = require("mongoose");
-const { Schema, model } = mongoose;
+const { Schema, model } = require("mongoose");
 const bcrypt = require("bcryptjs");
-const { Sex } = require("../../helpers/constants");
 SALT_WORK_FACTOR = 8;
 
 const usersSchema = new Schema(
   {
-    name: {
+    // name: {
+    //   type: String,
+    //   minlength: 2,
+    //   default: "Guest",
+    // },
+    // sex: {
+    //   type: String,
+    //   emum: {
+    //     value: [Sex.MALE, Sex.FEMALE, Sex.NONE],
+    //     message: "It isn't allowed",
+    //   },
+    //   default: Sex.NONE,
+    // },
+    subscription: {
       type: String,
-      minlength: 2,
-      default: "Guest",
-    },
-    sex: {
-      type: String,
-      emum: {
-        value: [Sex.MALE, Sex.FEMALE, Sex.NONE],
-        message: "It isn't allowed",
-      },
-      default: Sex.NONE,
+      enum: ["free", "pro", "premium"],
+      default: "free",
     },
     email: {
       type: String,

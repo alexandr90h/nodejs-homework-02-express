@@ -1,11 +1,19 @@
 const User = require("./schemas/users");
+
 const findByEmail = async (email) => {
   return await User.findOne({ email });
 };
-const
-const create = async ({name,email,password,sex}) => {
-    const user = new User({ name, email, password, sex });
-    return await user.save();
+
+const findById = async (id) => {
+  return await User.findOne({ _id: id });
 };
 
-module.exports = { findByEmail, create };
+const create = async ({ email, password }) => {
+  const user = new User({ email, password });
+  return await user.save();
+};
+
+const updateToken = async (id, token) => {
+  return await User.updateOne({ _id: id }, { token });
+};
+module.exports = { findByEmail, create, findById, updateToken };
