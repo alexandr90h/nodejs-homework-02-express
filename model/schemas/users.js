@@ -5,24 +5,6 @@ SALT_WORK_FACTOR = 8;
 
 const usersSchema = new Schema(
   {
-    // name: {
-    //   type: String,
-    //   minlength: 2,
-    //   default: "Guest",
-    // },
-    // sex: {
-    //   type: String,
-    //   emum: {
-    //     value: [Sex.MALE, Sex.FEMALE, Sex.NONE],
-    //     message: "It isn't allowed",
-    //   },
-    //   default: Sex.NONE,
-    // },
-    subscription: {
-      type: String,
-      enum: ["free", "pro", "premium"],
-      default: "free",
-    },
     email: {
       type: String,
       require: true,
@@ -33,6 +15,11 @@ const usersSchema = new Schema(
       },
     },
     password: { type: String, required: [true, "pasword required"] },
+    subscription: {
+      type: String,
+      enum: ["free", "pro", "premium"],
+      default: "free",
+    },
     token: { type: String, default: null },
   },
   { versionKey: false, timestamps: true }
@@ -43,8 +30,9 @@ usersSchema.pre("save", async function (next) {
   }
   const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
   this.password = await bcrypt.hash(this.password, salt, null);
-  next();
+  return next();
 });
+
 usersSchema.methods.validPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
