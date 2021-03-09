@@ -1,3 +1,178 @@
-{
-  "contacts": []
-}
+[
+  {
+    "_id": "6047de1b42031a8d28ce88a8",
+    
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b52a917118efe6c4b",
+    
+    "password": 240,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b4be3f829ed521ed8",
+    
+    "password": 814,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b76b8171a03e4b816",
+    
+    "password": 459,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b825643c8d1712a15",
+   
+    "password": 711,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b1360039cc7a4e78d",
+    
+    "password": 870,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b7a89a8b8de3abe56",
+    
+    "password": 924,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b3f735e7d250f2447",
+    
+    "password": 761,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b2d81b65a7d4e759d",
+    
+    "password": 344,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b618d10b986dfd832",
+    
+    "password": 536,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1bb4610055eeaa9610",
+    
+    "password": 815,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b2eff4e2db9d461ac",
+    
+    "password": 838,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b66017f95ccf343aa",
+    
+    "password": 961,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b5ce9a293f1033407",
+    
+    "password": 213,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b0c884ff7c8c7b32d",
+    
+    "password": 865,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b73fd19c127024ae0",
+    
+    "password": 181,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1bcf67c1dc4c38ed01",
+    
+    "password": 293,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1ba136cdd248f10a6c",
+    
+    "password": 481,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b6bca8da85740aaff",
+    
+    "password": 877,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1ba546df68539bb295",
+    
+    "password": 680,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1bbc0374c61a50f71b",
+    
+    "password": 296,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1bcb65736bffcd4ea9",
+    "name": "Cooper Craft",
+    "email": "coopercraft@insurity.com",
+    "phone": "+3 (819) 520-2767",
+    "subscription": "premium",
+    "password": 240,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b29d82fb4acf3b14b",
+    "name": "Frost Griffith",
+    "email": "frostgriffith@insurity.com",
+    "phone": "+3 (807) 480-3371",
+    "subscription": "pro",
+    "password": 514,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  },
+  {
+    "_id": "6047de1b4f5ab13f326eae61",
+    "name": "Mathis Wade",
+    "email": "mathiswade@insurity.com",
+    "phone": "+3 (916) 592-2680",
+    "subscription": "free",
+    "password": 623,
+    "token": "",
+    "owner": "60476944b88b1736e8376bcb"
+  }
+]

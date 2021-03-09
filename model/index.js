@@ -1,11 +1,20 @@
 const Contact = require("./schemas/contact");
 
-const listContacts = async (userId) => {
-  const results = await Contact.find({ owner: userId }).populate({
-    path: "owner",
-    select: "email subscription -_id",
-  });
+const listContacts = async (
+  userId
+  // { sortBy, filter, limit = 5, offset = 0 }
+) => {
+  const results = await Contact.paginate(
+    { owner: userId }
+    // {
+    //   limit,
+    //   offset,
+    //   populate: { path: "owner", select: "name email -_id" },
+    // }
+  );
   return results;
+  // const { docs: conracts, totalDocs: total } = results;
+  // return { total, limit, offset, page, conracts };
 };
 
 const getContactById = async (id, userId) => {
@@ -19,7 +28,7 @@ const addContact = async (body) => {
 };
 
 const updateContact = async (id, body, userId) => {
-  const results = await Contact.findByIdAndUpdate(
+  const results = await Contact.findOneAndUpdate(
     { _id: id, owner: userId },
     { ...body },
     { new: true }
@@ -28,7 +37,7 @@ const updateContact = async (id, body, userId) => {
 };
 
 const removeContact = async (id, userId) => {
-  const results = await Contact.findByIdAndDelete({
+  const results = await Contact.findOneAndRemove({
     _id: id,
     owner: userId,
   });
