@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcryptjs");
 SALT_WORK_FACTOR = 8;
+const gravatar = require("gravatar");
 
 const usersSchema = new Schema(
   {
@@ -19,6 +20,12 @@ const usersSchema = new Schema(
       type: String,
       enum: ["free", "pro", "premium"],
       default: "free",
+    },
+    avatar: {
+      type: String,
+      default: function () {
+        return gravatar.url(this.email, { s: "250" }, true);
+      },
     },
     token: { type: String, default: null },
   },

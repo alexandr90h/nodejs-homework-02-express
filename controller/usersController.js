@@ -20,7 +20,11 @@ const reg = async (req, res, next) => {
     return res.status(HttpCode.CREATE).json({
       status: "success",
       code: HttpCode.CREATE,
-      data: { email: newUser.email, subscription: newUser.subscription },
+      data: {
+        email: newUser.email,
+        subscription: newUser.subscription,
+        avatar: newUser.avatar,
+      },
     });
   } catch (error) {
     next(error);
@@ -30,7 +34,7 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await Users.findByEmail(email);
-    const isvalidPass = await user.validPassword(password);
+    const isvalidPass = await user?.validPassword(password);
     if (!user || !isvalidPass) {
       return res.status(HttpCode.UNAUTORIZED).json({
         status: "error",
