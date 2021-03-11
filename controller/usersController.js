@@ -75,5 +75,9 @@ const getUserInfo = async (req, res, next) => {
     },
   });
 };
-
-module.exports = { reg, login, logout, getUserInfo };
+const avatars = async (req, res, next) => {
+  try {
+    const id = req.user.id;
+  } catch (error) {}
+};
+module.exports = { reg, login, logout, getUserInfo, avatars };
