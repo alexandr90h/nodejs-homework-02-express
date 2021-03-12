@@ -23,7 +23,7 @@ const reg = async (req, res, next) => {
       data: {
         email: newUser.email,
         subscription: newUser.subscription,
-        avatar: newUser.avatar,
+        avatarURL: newUser.avatarURL,
       },
     });
   } catch (error) {
@@ -43,7 +43,7 @@ const login = async (req, res, next) => {
         message: "Email or password is wrong",
       });
     }
-    const { id, subscription } = user;
+    const { id, subscription, avatarURL } = user;
     const payload = { id };
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "2h" });
     await Users.updateToken(id, token);
@@ -52,7 +52,7 @@ const login = async (req, res, next) => {
       code: HttpCode.CREATE,
       data: {
         token,
-        user: { email, subscription },
+        user: { email, subscription, avatarURL },
       },
     });
   } catch (error) {
@@ -65,19 +65,22 @@ const logout = async (req, res, next) => {
   return res.status(HttpCode.NO_CONTENT).json();
 };
 const getUserInfo = async (req, res, next) => {
-  const { email, subscription } = req.user;
+  const { email, subscription, avatar } = req.user;
   return res.status(HttpCode.OK).json({
     status: "success",
     code: HttpCode.OK,
     data: {
       email,
       subscription,
+      avatar,
     },
   });
 };
 const avatars = async (req, res, next) => {
   try {
     const id = req.user.id;
+    const AVATARS_OF_USERS = process.env.AVATARS_OF_USERS;
+    const pathFile = req.file.path;
   } catch (error) {}
 };
 module.exports = { reg, login, logout, getUserInfo, avatars };

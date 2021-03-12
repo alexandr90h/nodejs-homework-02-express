@@ -5,7 +5,12 @@ const controller = require("../../../controller/usersController");
 const guard = require("../../../helpers/guard");
 const upload = require("../../../helpers/upload");
 
-router.post("/register", validate.create, controller.reg);
+router.post(
+  "/register",
+  upload.single("avatar"),
+  validate.create,
+  controller.reg
+);
 router.post("/login", validate.login, controller.login);
 router.post("/logout", guard, controller.logout);
 router.get("/current", guard, controller.getUserInfo);
