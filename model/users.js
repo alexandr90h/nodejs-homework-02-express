@@ -16,8 +16,8 @@ const create = async ({ email, password }) => {
 const updateToken = async (id, token) => {
   return await User.updateOne({ _id: id }, { token });
 };
-const updateAvatar = async (id, avatar) => {
-  return await User.updateOne({ _id: id }, { avatar });
+const updateAvatar = async (id, avatarURL) => {
+  return await User.updateOne({ _id: id }, { avatarURL });
 };
 
 module.exports = { findByEmail, create, findById, updateToken, updateAvatar };

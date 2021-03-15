@@ -87,7 +87,6 @@ const avatars = async (req, res, next) => {
     const id = req.user.id;
     const AVATARS_OF_USERS = process.env.AVATARS_OF_USERS;
     const pathFile = req.file.path;
-    console.log(pathFile);
     const newNameAvatar = `${Date.now()}-${req.file.originalname}`;
     const img = await Jimp.read(pathFile);
     await img
@@ -100,7 +99,8 @@ const avatars = async (req, res, next) => {
       .writeAsync(pathFile);
     await createFolderIsExist(path.join(AVATARS_OF_USERS, id));
     await fs.rename(pathFile, path.join(AVATARS_OF_USERS, id, newNameAvatar));
-    const avatarUrl = path.normalize(path.join(id, newNameAvatar));
+    const avatarURL = path.normalize(path.join(id, newNameAvatar));
+    console.log(avatarURL);
     try {
       await fs.unlink(
         path.join(process.cwd(), AVATARS_OF_USERS, req.user.avatar)
@@ -108,12 +108,12 @@ const avatars = async (req, res, next) => {
     } catch (error) {
       console.log(error.message);
     }
-    await Users.updateAvatar(id, avatarUrl);
+    await Users.updateAvatar(id, avatarURL);
     return res.json({
       status: "success",
       code: HttpCode.OK,
       data: {
-        avatarUrl,
+        avatarURL,
       },
     });
   } catch (error) {

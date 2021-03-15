@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { HttpCode } = require("../../../helpers/constants");
 
 const schemaRegister = Joi.object({
   email: Joi.string()
@@ -20,13 +21,12 @@ const schemaLogin = Joi.object({
     .required(),
   password: Joi.string().required(),
 });
-
 const validate = (schema, obj, next) => {
   const { error } = schema.validate(obj);
   if (error) {
     console.log(error.details[0].path);
     return next({
-      status: 400,
+      status: HttpCode.BAD_REQUEST,
       message: `missing required ${error.details[0].path} field`,
     });
   }
@@ -38,4 +38,15 @@ module.exports.create = (req, res, next) => {
 };
 module.exports.login = (req, res, next) => {
   return validate(schemaLogin, req.body, next);
+};
+module.exports.uploadAvatar = (req, res, next) => {
+  if (!req.file) {
+    return res.status(HttpCode.BAD_REQUEST).json({
+      status: "error",
+      code: HttpCode.BAD_REQUEST,
+      data: "Bad request",
+      message: "Field of avatar with file not found",
+    });
+  }
+  next();
 };
