@@ -4,15 +4,17 @@ require("dotenv").config();
 const Jimp = require("jimp");
 const path = require("path");
 const fs = require("fs").promises;
+const { nanoid } = require("nanoid");
 
 const SECRET_KEY = process.env.JWT_SECRET;
-
+const EmailService = require("../services/email");
 const Users = require("../model/users");
 const createFolderIsExist = require("../helpers/createDir");
+const User = require("../model/schemas/users");
 
 const reg = async (req, res, next) => {
   try {
-    const { email } = req.body;
+    const { email, name } = req.body;
     const user = await Users.findByEmail(email);
     if (user) {
       return res.status(HttpCode.FORBIDDEN).json({
@@ -22,7 +24,14 @@ const reg = async (req, res, next) => {
         message: "Email is already use",
       });
     }
-    const newUser = await Users.create(req.body);
+    const verifyToken = nanoid();
+    const emailService = new EmailService(process.env.NODE_ENV);
+    await emailService.sendEmail(verifyToken, email, name);
+    const newUser = await Users.create({
+      ...req.body,
+      veryfy: false,
+      verifyToken,
+    });
     return res.status(HttpCode.CREATE).json({
       status: "success",
       code: HttpCode.CREATE,
@@ -41,7 +50,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await Users.findByEmail(email);
     const isvalidPass = await user?.validPassword(password);
-    if (!user || !isvalidPass) {
+    if (!user || !isvalidPass || !user.veryfy) {
       return res.status(HttpCode.UNAUTORIZED).json({
         status: "error",
         code: HttpCode.UNAUTORIZED,
@@ -120,4 +129,26 @@ const avatars = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { reg, login, logout, getUserInfo, avatars };
+const veryfy = async (req, res, next) => {
+  try {
+    const user = Users.findByVerifyToken(req.params.token);
+    if (user) {
+      await Users.updateVerifyToken(user.id, true, null);
+      return res.status(HttpCode.OK).json({
+        status: "success",
+        code: HttpCode.OK,
+        message: "Verification successful!",
+      });
+    }
+    return res.status(HttpCode.BAD_REQUEST).json({
+      status: "error",
+      code: HttpCode.BAD_REQUEST,
+      data: "Bad request",
+      message: `Link is not valid`,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { reg, login, logout, getUserInfo, avatars, veryfy };
