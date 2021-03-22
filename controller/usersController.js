@@ -4,7 +4,8 @@ require("dotenv").config();
 const Jimp = require("jimp");
 const path = require("path");
 const fs = require("fs").promises;
-const { nanoid } = require("nanoid");
+// const { nanoid } = require("nanoid");
+const { v4: uuidv4 } = require("uuid");
 
 const SECRET_KEY = process.env.JWT_SECRET;
 const EmailService = require("../services/email");
@@ -24,7 +25,7 @@ const reg = async (req, res, next) => {
         message: "Email is already use",
       });
     }
-    const verifyToken = nanoid();
+    const verifyToken = uuidv4();
     const emailService = new EmailService(process.env.NODE_ENV);
     await emailService.sendEmail(verifyToken, email, name);
     const newUser = await Users.create({
@@ -50,7 +51,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await Users.findByEmail(email);
     const isvalidPass = await user?.validPassword(password);
-    if (!user || !isvalidPass || !user.veryfy) {
+    if (!user || !isvalidPass || !user.verify) {
       return res.status(HttpCode.UNAUTORIZED).json({
         status: "error",
         code: HttpCode.UNAUTORIZED,
@@ -129,9 +130,9 @@ const avatars = async (req, res, next) => {
     next(error);
   }
 };
-const veryfy = async (req, res, next) => {
+const verify = async (req, res, next) => {
   try {
-    const user = Users.findByVerifyToken(req.params.token);
+    const user = await Users.findByVerifyToken(req.params.token);
     if (user) {
       await Users.updateVerifyToken(user.id, true, null);
       return res.status(HttpCode.OK).json({
@@ -151,4 +152,4 @@ const veryfy = async (req, res, next) => {
   }
 };
 
-module.exports = { reg, login, logout, getUserInfo, avatars, veryfy };
+module.exports = { reg, login, logout, getUserInfo, avatars, verify };
